@@ -1,4 +1,4 @@
-package com.crocobet.example.repository.user;
+package com.crocobet.example.repository;
 
 import com.crocobet.example.domain.user.UserDomain;
 import org.springframework.data.repository.CrudRepository;

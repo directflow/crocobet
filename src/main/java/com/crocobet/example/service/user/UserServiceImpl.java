@@ -4,7 +4,7 @@ import com.crocobet.example.domain.role.Role;
 import com.crocobet.example.domain.user.UserDomain;
 import com.crocobet.example.exceptions.DuplicateUserException;
 import com.crocobet.example.exceptions.UserNotFoundException;
-import com.crocobet.example.repository.user.UserRepository;
+import com.crocobet.example.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
