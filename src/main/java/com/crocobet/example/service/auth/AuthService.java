@@ -1,7 +1,9 @@
 package com.crocobet.example.service.auth;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.crocobet.example.model.jwt.JwtAuthenticationRequest;
+import com.crocobet.example.model.jwt.JwtAuthenticationResponse;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public interface AuthService {
-    UserDetailsService userDetailsService();
+    JwtAuthenticationResponse login(JwtAuthenticationRequest request) throws UsernameNotFoundException;
 }

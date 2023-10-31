@@ -29,11 +29,17 @@ public class UserController {
         return userFacade.getUserById(id);
     }
 
+    /*
+     I think Post method would be better for updateUser
+     */
     @PostMapping("")
     public UserDomain addUser(@Valid @RequestBody UserDomain userDomain) throws DuplicateUserException {
         return userFacade.addUser(userDomain);
     }
 
+    /*
+     I think Put method would be better for addUser
+     */
     @PutMapping("/{id}")
     public UserDomain updateUser(@PathVariable Integer id, @Valid @RequestBody UserDomain userDomain) throws UserNotFoundException, DuplicateUserException {
         return userFacade.updateUser(id, userDomain);
