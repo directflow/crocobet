@@ -1,0 +1,18 @@
+server:
+  port: 8080
+  shutdown: graceful
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+spring:
+  main:
+    banner-mode: "off"
+  datasource:
+    url: jdbc:postgresql://localhost:5432/crocobet
+    username: user
+    password: password
+  jpa:
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: update
