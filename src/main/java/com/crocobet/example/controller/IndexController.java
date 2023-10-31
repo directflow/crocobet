@@ -10,7 +10,7 @@ public class IndexController {
 
     @RequestMapping("")
     public ResponseEntity<String> index() {
-        return ResponseEntity.ok("ok");
+        return ResponseEntity.ok("Please use: /swagger-ui/index.html");
     }
 
 }
