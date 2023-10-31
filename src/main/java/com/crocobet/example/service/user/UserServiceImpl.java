@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
      *
      * @param id User id
      * @return UserDomain entity
-     * @throws UserNotFoundException if user not found
+     * @throws UserNotFoundException if user not exists
      */
     @Override
     @Transactional(readOnly = true)
@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
      * @param id         UserDomain id
      * @param userDomain UserDomain object
      * @return Updated UserDomain entity
-     * @throws UserNotFoundException  If user not found with id
+     * @throws UserNotFoundException  If user not exists with id
      * @throws DuplicateUserException If user was found by username or email and active state
      */
     @Override
@@ -143,7 +143,7 @@ public class UserServiceImpl implements UserService {
      * State change to inactive
      *
      * @param id UserDomain id
-     * @throws UserNotFoundException If user not found
+     * @throws UserNotFoundException If user not exists
      */
     @Override
     @Transactional

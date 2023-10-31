@@ -17,10 +17,22 @@ public class UserFacade {
         this.userService = userService;
     }
 
+    /**
+     * Read all UserDomain entities from db and converting to new UserDomain response object list
+     *
+     * @return List of UserDomain objects
+     */
     public List<UserDomain> getUserList() {
         return userService.getUserList().stream().map(this::buildResponseDTO).toList();
     }
 
+    /**
+     * Get UserDomain by id and converting to new UserDomain response object
+     *
+     * @param id UserDomain id
+     * @return UserDomain object
+     * @throws UserNotFoundException If user not exists
+     */
     public UserDomain getUserById(Integer id) throws UserNotFoundException {
         return buildResponseDTO(userService.getUserById(id));
     }
@@ -33,6 +45,12 @@ public class UserFacade {
         return buildResponseDTO(userService.updateUser(id, buildRequestDTO(userDomain)));
     }
 
+    /**
+     * Delete user by id
+     *
+     * @param id UserDomain id
+     * @throws UserNotFoundException If user not exists
+     */
     public void deleteUser(Integer id) throws UserNotFoundException {
         userService.deleteUser(id);
     }
