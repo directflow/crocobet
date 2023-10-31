@@ -16,3 +16,6 @@ spring:
     show-sql: false
     hibernate:
       ddl-auto: update
+jwt:
+  signing:
+    key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351
