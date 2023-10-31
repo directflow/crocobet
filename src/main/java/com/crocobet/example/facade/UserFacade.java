@@ -4,18 +4,16 @@ import com.crocobet.example.domain.user.UserDomain;
 import com.crocobet.example.exceptions.DuplicateUserException;
 import com.crocobet.example.exceptions.UserNotFoundException;
 import com.crocobet.example.service.user.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class UserFacade {
 
     private final UserService userService;
-
-    public UserFacade(UserService userService) {
-        this.userService = userService;
-    }
 
     /**
      * Read all UserDomain entities from db and converting to new UserDomain response object list

@@ -6,6 +6,7 @@ import com.crocobet.example.exceptions.UserNotFoundException;
 import com.crocobet.example.facade.UserFacade;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,13 +14,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @Tag(name = "User controller")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserFacade userFacade;
-
-    public UserController(UserFacade userFacade) {
-        this.userFacade = userFacade;
-    }
 
     @GetMapping("")
     public List<UserDomain> getUserList() {
