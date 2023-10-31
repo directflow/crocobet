@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends CrudRepository<UserDomain, Integer> {
-    boolean existsByUsernameAndState(String username, Integer state);
-    Optional<UserDomain> findOneByUsernameAndState(String username, Integer state);
-    Optional<UserDomain> findByIdAndState(Integer id, Integer state);
-    List<UserDomain> findAll();
-    Optional<UserDomain> findById(Integer id);
+    boolean existsByUsernameAndEnabled(String username, Boolean enabled);
+    boolean existsByEmailAndEnabled(String email, Boolean enabled);
+    Optional<UserDomain> findOneByUsernameAndEnabled(String username, Boolean enabled);
+    Optional<UserDomain> findByIdAndEnabled(Integer id, Boolean enabled);
+    List<UserDomain> findAllByEnabled(Boolean enabled);
 }

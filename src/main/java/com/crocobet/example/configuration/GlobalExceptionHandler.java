@@ -1,5 +1,7 @@
 package com.crocobet.example.configuration;
 
+import com.crocobet.example.exceptions.DuplicateUserException;
+import com.crocobet.example.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -38,9 +40,21 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ResponseEntity<Object> accessDeniedException(UsernameNotFoundException e) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Username or password is incorrect");
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Object> usernameNotFoundException(UsernameNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username or password is incorrect");
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Object> userNotFoundException(UserNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
+    }
+
+    @ExceptionHandler(DuplicateUserException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Object> duplicateUserException(DuplicateUserException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
     @ExceptionHandler(BindException.class)
