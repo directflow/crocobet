@@ -14,7 +14,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
 
     /**
-     * Get UserDomain entity extended from UserDetails with username
+     * Get UserDomain entity extended from UserDetails with username and active state
      *
      * @return UserDetailsService
      * @throws UsernameNotFoundException If user not exists
