@@ -1,5 +1,6 @@
 package com.crocobet.example.controller;
 
+import com.crocobet.example.logging.Loggable;
 import com.crocobet.example.model.jwt.JwtAuthenticationRequest;
 import com.crocobet.example.model.jwt.JwtAuthenticationResponse;
 import com.crocobet.example.service.auth.AuthService;
@@ -21,6 +22,7 @@ public class AuthController {
 
     private final AuthService authService;
 
+    @Loggable
     @PostMapping("")
     public ResponseEntity<JwtAuthenticationResponse> login(@RequestBody @Valid JwtAuthenticationRequest jwtAuthenticationRequest) throws UsernameNotFoundException {
        return ResponseEntity.ok(authService.login(jwtAuthenticationRequest));

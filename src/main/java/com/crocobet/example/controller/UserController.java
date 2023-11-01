@@ -4,6 +4,7 @@ import com.crocobet.example.domain.user.UserDomain;
 import com.crocobet.example.exceptions.DuplicateUserException;
 import com.crocobet.example.exceptions.UserNotFoundException;
 import com.crocobet.example.facade.UserFacade;
+import com.crocobet.example.logging.Loggable;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class UserController {
         return userFacade.getUserList();
     }
 
+    @Loggable
     @GetMapping("/{id}")
     public UserDomain getUserById(@PathVariable Integer id) throws UserNotFoundException {
         return userFacade.getUserById(id);
@@ -32,6 +34,7 @@ public class UserController {
     /*
      I think Post method would be better for updateUser
      */
+    @Loggable
     @PostMapping("")
     public UserDomain addUser(@Valid @RequestBody UserDomain userDomain) throws DuplicateUserException {
         return userFacade.addUser(userDomain);
@@ -40,11 +43,13 @@ public class UserController {
     /*
      I think Put method would be better for addUser
      */
+    @Loggable
     @PutMapping("/{id}")
     public UserDomain updateUser(@PathVariable Integer id, @Valid @RequestBody UserDomain userDomain) throws UserNotFoundException, DuplicateUserException {
         return userFacade.updateUser(id, userDomain);
     }
 
+    @Loggable
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Integer id) throws UserNotFoundException {
         userFacade.deleteUser(id);
