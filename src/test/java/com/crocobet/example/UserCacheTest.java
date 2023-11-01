@@ -2,7 +2,6 @@ package com.crocobet.example;
 
 import com.crocobet.example.domain.user.UserDomain;
 import com.crocobet.example.exception.UserNotFoundException;
-import com.crocobet.example.facade.UserFacade;
 import com.crocobet.example.service.user.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
@@ -18,16 +17,9 @@ public class UserCacheTest {
 
     private UserService userService;
 
-    private UserFacade userFacade;
-
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
-    }
-
-    @Autowired
-    public void setUserFacade(UserFacade userFacade) {
-        this.userFacade = userFacade;
     }
 
     @Test

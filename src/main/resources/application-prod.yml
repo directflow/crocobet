@@ -8,7 +8,7 @@ spring:
   main:
     banner-mode: "off"
   datasource:
-    url: jdbc:postgresql://localhost:5432/crocobet
+    url: jdbc:postgresql://postgres-prod:5432/crocobet
     username: user
     password: password
   jpa:
@@ -20,5 +20,5 @@ jwt:
   key: 0E29F63052E520DE00C90726734E9471B4938832A41CE50986451201F26ED1D8
   expiration: 60
 hazelcast:
-  host: 127.0.0.1
+  host: hazelcast-prod
   port: 5701

@@ -1,0 +1,30 @@
+services:
+  database:
+    image: 'postgres:16.0-alpine'
+    container_name: postgres-prod
+    ports:
+      - '5432:5432'
+    environment:
+      - 'POSTGRES_DB=crocobet'
+      - 'POSTGRES_USER=user'
+      - 'POSTGRES_PASSWORD=password'
+  hazelcast:
+    image: 'hazelcast/hazelcast'
+    container_name: hazelcast-prod
+    ports:
+      - '5701:5701'
+  app:
+    image: 'zura/crocobet-example:latest'
+    build:
+      context: .
+    container_name: crocobet-prod
+    ports:
+      - '8080:8080'
+    depends_on:
+      - database
+      - hazelcast
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/crocobet
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
