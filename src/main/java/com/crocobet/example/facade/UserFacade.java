@@ -1,8 +1,8 @@
 package com.crocobet.example.facade;
 
 import com.crocobet.example.domain.user.UserDomain;
-import com.crocobet.example.exceptions.DuplicateUserException;
-import com.crocobet.example.exceptions.UserNotFoundException;
+import com.crocobet.example.exception.UserDuplicateException;
+import com.crocobet.example.exception.UserNotFoundException;
 import com.crocobet.example.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -35,11 +35,11 @@ public class UserFacade {
         return buildResponseDTO(userService.getUserById(id));
     }
 
-    public UserDomain addUser(UserDomain userDomain) throws DuplicateUserException {
+    public UserDomain addUser(UserDomain userDomain) throws UserDuplicateException {
         return buildResponseDTO(userService.addUser(buildRequestDTO(userDomain)));
     }
 
-    public UserDomain updateUser(Integer id, UserDomain userDomain) throws UserNotFoundException, DuplicateUserException {
+    public UserDomain updateUser(Integer id, UserDomain userDomain) throws UserNotFoundException, UserDuplicateException {
         return buildResponseDTO(userService.updateUser(id, buildRequestDTO(userDomain)));
     }
 

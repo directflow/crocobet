@@ -2,8 +2,8 @@ package com.crocobet.example.service.user;
 
 import com.crocobet.example.domain.role.Role;
 import com.crocobet.example.domain.user.UserDomain;
-import com.crocobet.example.exceptions.DuplicateUserException;
-import com.crocobet.example.exceptions.UserNotFoundException;
+import com.crocobet.example.exception.UserDuplicateException;
+import com.crocobet.example.exception.UserNotFoundException;
 import com.crocobet.example.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -64,18 +64,18 @@ public class UserServiceImpl implements UserService {
      *
      * @param userDomain UserDomain object
      * @return Persisted UserDomain entity with id
-     * @throws DuplicateUserException If user was found by username or email and active state
+     * @throws UserDuplicateException If user was found by username or email and active state
      */
     @Override
     @Transactional
-    public UserDomain addUser(UserDomain userDomain) throws DuplicateUserException {
+    public UserDomain addUser(UserDomain userDomain) throws UserDuplicateException {
 
         if (checkUserExistenceByUsername(userDomain.getUsername())) {
-            throw new DuplicateUserException(userDomain.getUsername());
+            throw new UserDuplicateException(userDomain.getUsername());
         }
 
         if (checkUserExistenceByEmail(userDomain.getEmail())) {
-            throw new DuplicateUserException(userDomain.getEmail());
+            throw new UserDuplicateException(userDomain.getEmail());
         }
 
         // Encrypt password
@@ -100,25 +100,25 @@ public class UserServiceImpl implements UserService {
      * @param userDomain UserDomain object
      * @return Updated UserDomain entity
      * @throws UserNotFoundException  If user not exists with id
-     * @throws DuplicateUserException If user was found by username or email and active state
+     * @throws UserDuplicateException If user was found by username or email and active state
      */
     @Override
     @Transactional
-    public UserDomain updateUser(Integer id, UserDomain userDomain) throws UserNotFoundException, DuplicateUserException {
+    public UserDomain updateUser(Integer id, UserDomain userDomain) throws UserNotFoundException, UserDuplicateException {
 
         UserDomain find = userRepository.findByIdAndEnabled(id, true).orElseThrow(UserNotFoundException::new);
 
         // If request username not equals to current username, check duplication
         if (!find.getUsername().equals(userDomain.getUsername())) {
             if (checkUserExistenceByUsername(userDomain.getUsername())) {
-                throw new DuplicateUserException(userDomain.getUsername());
+                throw new UserDuplicateException(userDomain.getUsername());
             }
         }
 
         // If request email not equals to current email, check duplication
         if (!find.getEmail().equals(userDomain.getEmail())) {
             if (checkUserExistenceByEmail(userDomain.getEmail())) {
-                throw new DuplicateUserException(userDomain.getEmail());
+                throw new UserDuplicateException(userDomain.getEmail());
             }
         }
 

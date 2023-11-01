@@ -1,7 +1,7 @@
 package com.crocobet.example.configuration;
 
-import com.crocobet.example.exceptions.DuplicateUserException;
-import com.crocobet.example.exceptions.UserNotFoundException;
+import com.crocobet.example.exception.UserDuplicateException;
+import com.crocobet.example.exception.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -37,30 +37,35 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<Object> accessDeniedException(AccessDeniedException e) {
+        logger.error(e.getMessage(), e);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized access");
     }
 
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<Object> badCredentialsException(BadCredentialsException e) {
+        logger.error(e.getMessage(), e);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Bad credentials");
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> usernameNotFoundException(UsernameNotFoundException e) {
+        logger.error(e.getMessage(), e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> userNotFoundException(UserNotFoundException e) {
+        logger.error(e.getMessage(), e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
     }
 
-    @ExceptionHandler(DuplicateUserException.class)
+    @ExceptionHandler(UserDuplicateException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Object> duplicateUserException(DuplicateUserException e) {
+    public ResponseEntity<Object> userDuplicateException(UserDuplicateException e) {
+        logger.error(e.getMessage(), e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
@@ -74,11 +79,12 @@ public class GlobalExceptionHandler {
                 .stream()
                 .collect(Collectors.toMap(error -> ((FieldError) error).getField(), error -> Objects.requireNonNull((error).getDefaultMessage())));
 
+        logger.error(bindException.getMessage(), bindException);
+
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .header("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                 .body(errors);
 
     }
-
 }

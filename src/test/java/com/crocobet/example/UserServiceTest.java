@@ -1,7 +1,7 @@
 package com.crocobet.example;
 
 import com.crocobet.example.domain.user.UserDomain;
-import com.crocobet.example.exceptions.UserNotFoundException;
+import com.crocobet.example.exception.UserNotFoundException;
 import com.crocobet.example.service.user.UserService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;

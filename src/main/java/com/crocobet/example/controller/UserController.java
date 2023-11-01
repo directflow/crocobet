@@ -1,8 +1,8 @@
 package com.crocobet.example.controller;
 
 import com.crocobet.example.domain.user.UserDomain;
-import com.crocobet.example.exceptions.DuplicateUserException;
-import com.crocobet.example.exceptions.UserNotFoundException;
+import com.crocobet.example.exception.UserDuplicateException;
+import com.crocobet.example.exception.UserNotFoundException;
 import com.crocobet.example.facade.UserFacade;
 import com.crocobet.example.logging.Loggable;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,7 +36,7 @@ public class UserController {
      */
     @Loggable
     @PostMapping("")
-    public UserDomain addUser(@Valid @RequestBody UserDomain userDomain) throws DuplicateUserException {
+    public UserDomain addUser(@Valid @RequestBody UserDomain userDomain) throws UserDuplicateException {
         return userFacade.addUser(userDomain);
     }
 
@@ -45,7 +45,7 @@ public class UserController {
      */
     @Loggable
     @PutMapping("/{id}")
-    public UserDomain updateUser(@PathVariable Integer id, @Valid @RequestBody UserDomain userDomain) throws UserNotFoundException, DuplicateUserException {
+    public UserDomain updateUser(@PathVariable Integer id, @Valid @RequestBody UserDomain userDomain) throws UserNotFoundException, UserDuplicateException {
         return userFacade.updateUser(id, userDomain);
     }
 
