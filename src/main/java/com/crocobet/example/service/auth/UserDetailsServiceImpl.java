@@ -16,6 +16,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     /**
      * Get UserDomain entity extended from UserDetails with username and active state
+     * Method uses cache by username and enable in repository
      *
      * @return UserDetails
      * @throws UsernameNotFoundException If user not exists

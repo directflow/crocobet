@@ -40,14 +40,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        String jwt = authHeader.substring(7);
+        final String jwt = authHeader.substring(7);
 
-        String username = jwtService.extractUserName(jwt);
+        final String username = jwtService.extractUserName(jwt);
 
-        if (StringUtils.isNotEmpty(username)
-                && Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
+        if (StringUtils.isNotEmpty(username) && Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
 
-            UserDomain userDetails = userRepository.findOneByUsernameAndEnabled(username, true).orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
+            UserDomain userDetails = findByUsername(username);
 
             if (jwtService.isTokenValid(jwt, userDetails)) {
                 SecurityContext context = SecurityContextHolder.createEmptyContext();
@@ -60,5 +59,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    /**
+     * Get UserDomain entity extended from UserDetails with username and active state
+     * Method uses cache by username and enable in repository
+     *
+     * @param username Username
+     * @return UserDomain object
+     * @throws UsernameNotFoundException if user not exists
+     */
+    private UserDomain findByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findOneByUsernameAndEnabled(username, true).orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
     }
 }

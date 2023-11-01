@@ -45,12 +45,14 @@ public class UserFacade {
 
     /**
      * Delete user by id
+     * Drop user cache by username and active state
      *
      * @param id UserDomain id
      * @throws UserNotFoundException If user not exists
      */
     public void deleteUser(Integer id) throws UserNotFoundException {
-        userService.deleteUser(id);
+        UserDomain userDomain = userService.deleteUser(id);
+        userService.dropUsernameEnabledCache(userDomain.getUsername(), true);
     }
 
     /**

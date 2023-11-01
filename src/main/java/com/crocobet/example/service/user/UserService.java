@@ -18,5 +18,7 @@ public interface UserService {
 
     UserDomain updateUser(Integer id, UserDomain userDomain) throws UserNotFoundException, UserDuplicateException;
 
-    void deleteUser(Integer id) throws UserNotFoundException;
+    UserDomain deleteUser(Integer id) throws UserNotFoundException;
+
+    public void dropUsernameEnabledCache(String username, Boolean enabled);
 }

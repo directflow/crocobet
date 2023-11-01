@@ -6,6 +6,7 @@ import com.crocobet.example.exception.UserDuplicateException;
 import com.crocobet.example.exception.UserNotFoundException;
 import com.crocobet.example.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * Find user by username and active state for auth
+     * Method uses cache by username and enable in repository
      *
      * @param username Username
      * @return Optional of UserDomain entity
@@ -144,17 +146,17 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     @Transactional
-    public void deleteUser(Integer id) throws UserNotFoundException {
+    public UserDomain deleteUser(Integer id) throws UserNotFoundException {
 
         UserDomain find = userRepository.findByIdAndEnabled(id, true).orElseThrow(UserNotFoundException::new);
 
         // Set inactive state to user
-        find.setEnabled(true);
+        find.setEnabled(false);
 
         // Set delete date to user
         find.setModifyDate(LocalDateTime.now());
 
-        userRepository.save(find);
+        return userRepository.save(find);
     }
 
     /**
@@ -177,5 +179,16 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     public boolean checkUserExistenceByEmail(String email) {
         return userRepository.existsByEmailAndEnabled(email, true);
+    }
+
+    /**
+     * Drop user cache by username and enabled state
+     * Call from UserFacade after deleteUser method
+     *
+     * @param username Username
+     * @param enabled  Enabled
+     */
+    @CacheEvict(value = "USERNAME_KEY_CACHE", key = "{#username,#enabled}")
+    public void dropUsernameEnabledCache(String username, Boolean enabled) {
     }
 }

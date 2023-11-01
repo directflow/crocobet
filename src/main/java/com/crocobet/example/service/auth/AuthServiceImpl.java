@@ -27,10 +27,20 @@ public class AuthServiceImpl implements AuthService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
-        UserDomain userDomain = userService.getUserByUsername(request.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException("Invalid email or password"));
+        UserDomain userDomain = getUserByUsername(request.getUsername());
 
         return JwtAuthenticationResponse.builder().token(jwtService.generateToken(userDomain)).build();
     }
 
+    /**
+     * Get UserDomain entity extended from UserDetails with username and active state
+     * Method uses cache by username and enable in repository
+     *
+     * @return UserDetails
+     * @throws UsernameNotFoundException If user not exists
+     */
+    public UserDomain getUserByUsername(String username) throws UsernameNotFoundException {
+        return userService.getUserByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
+    }
 }
