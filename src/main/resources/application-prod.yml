@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT}
   shutdown: graceful
 springdoc:
   swagger-ui:
@@ -8,17 +8,17 @@ spring:
   main:
     banner-mode: "off"
   datasource:
-    url: jdbc:postgresql://postgres-prod:5432/crocobet
-    username: user
-    password: password
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
     open-in-view: false
     show-sql: false
     hibernate:
       ddl-auto: update
 jwt:
-  key: 0E29F63052E520DE00C90726734E9471B4938832A41CE50986451201F26ED1D8
-  expiration: 60
+  key: ${JWT_SECRET_KEY}
+  expiration: ${JWT_EXPIRATION_SEC}
 hazelcast:
   host: hazelcast-prod
-  port: 5701
+  port: ${HAZELCAST_PORT}
