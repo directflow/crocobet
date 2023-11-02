@@ -9,4 +9,4 @@ WORKDIR $APP_HOME
 RUN groupadd -r -g 1000 user && useradd -r -g user -u 1000 user
 RUN chown -R user:user /app
 USER user
-ENTRYPOINT exec java -jar -Dspring.profiles.active=prod ${ARTIFACT_NAME}
+ENTRYPOINT exec java -jar -Dspring.profiles.active=prod -Duser.timezone=GMT+04:00 ${ARTIFACT_NAME}
