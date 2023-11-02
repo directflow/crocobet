@@ -8,6 +8,8 @@ import com.crocobet.example.logging.Loggable;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,8 +29,8 @@ public class UserController {
 
     @Loggable
     @GetMapping("/{id}")
-    public UserDomain getUserById(@PathVariable Integer id) throws UserNotFoundException {
-        return userFacade.getUserById(id);
+    public ResponseEntity<UserDomain> getUserById(@PathVariable Integer id) throws UserNotFoundException {
+        return ResponseEntity.ok(userFacade.getUserById(id));
     }
 
     /*
@@ -36,8 +38,8 @@ public class UserController {
      */
     @Loggable
     @PostMapping("")
-    public UserDomain addUser(@Valid @RequestBody UserDomain userDomain) throws UserDuplicateException {
-        return userFacade.addUser(userDomain);
+    public ResponseEntity<UserDomain> addUser(@Valid @RequestBody UserDomain userDomain) throws UserDuplicateException {
+        return ResponseEntity.ok(userFacade.addUser(userDomain));
     }
 
     /*
@@ -45,13 +47,14 @@ public class UserController {
      */
     @Loggable
     @PutMapping("/{id}")
-    public UserDomain updateUser(@PathVariable Integer id, @Valid @RequestBody UserDomain userDomain) throws UserNotFoundException, UserDuplicateException {
-        return userFacade.updateUser(id, userDomain);
+    public ResponseEntity<UserDomain> updateUser(@PathVariable Integer id, @Valid @RequestBody UserDomain userDomain) throws UserNotFoundException, UserDuplicateException {
+        return ResponseEntity.ok(userFacade.updateUser(id, userDomain));
     }
 
     @Loggable
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Integer id) throws UserNotFoundException {
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) throws UserNotFoundException {
         userFacade.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

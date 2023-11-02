@@ -12,5 +12,4 @@ public class IndexController {
     public ResponseEntity<String> index() {
         return ResponseEntity.ok("Please use: /swagger-ui/index.html");
     }
-
 }

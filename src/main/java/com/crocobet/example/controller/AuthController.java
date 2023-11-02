@@ -27,5 +27,4 @@ public class AuthController {
     public ResponseEntity<JwtAuthenticationResponse> login(@RequestBody @Valid JwtAuthenticationRequest jwtAuthenticationRequest) throws UsernameNotFoundException {
        return ResponseEntity.ok(authService.login(jwtAuthenticationRequest));
     }
-
 }

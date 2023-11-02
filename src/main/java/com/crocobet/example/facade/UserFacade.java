@@ -3,11 +3,15 @@ package com.crocobet.example.facade;
 import com.crocobet.example.domain.user.UserDomain;
 import com.crocobet.example.exception.UserDuplicateException;
 import com.crocobet.example.exception.UserNotFoundException;
+import com.crocobet.example.service.user.UserBuilderUtil;
 import com.crocobet.example.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+
+import static com.crocobet.example.service.user.UserBuilderUtil.buildRequestDTO;
+import static com.crocobet.example.service.user.UserBuilderUtil.buildResponseDTO;
 
 @Component
 @RequiredArgsConstructor
@@ -21,7 +25,7 @@ public class UserFacade {
      * @return List of UserDomain objects
      */
     public List<UserDomain> getUserList() {
-        return userService.getUserList().stream().map(this::buildResponseDTO).toList();
+        return userService.getUserList().stream().map(UserBuilderUtil::buildResponseDTO).toList();
     }
 
     /**
@@ -53,47 +57,5 @@ public class UserFacade {
     public void deleteUser(Integer id) throws UserNotFoundException {
         UserDomain userDomain = userService.deleteUser(id);
         userService.dropUsernameEnabledCache(userDomain.getUsername(), true);
-    }
-
-    /**
-     * Build new UserDomain object from entity with Lombok builder
-     * Pass password for security
-     *
-     * @param userDomain UserDomain entity
-     * @return Converted to UserDomain object
-     */
-    private UserDomain buildResponseDTO(UserDomain userDomain) {
-
-        return UserDomain
-                .builder()
-                .id(userDomain.getId())
-                .username(userDomain.getUsername())
-                .email(userDomain.getEmail())
-                .firstName(userDomain.getFirstName())
-                .lastName(userDomain.getLastName())
-                .createDate(userDomain.getCreateDate())
-                .modifyDate(userDomain.getModifyDate())
-                .enabled(userDomain.getEnabled())
-                .role(userDomain.getRole())
-                .build();
-    }
-
-    /**
-     * Build new UserDomain object to entity with Lombok builder
-     * Pass id, createDate, modifyDate, role for security
-     *
-     * @param userDomain UserDomain object
-     * @return Converted to UserDomain entity
-     */
-    private UserDomain buildRequestDTO(UserDomain userDomain) {
-
-        return UserDomain
-                .builder()
-                .username(userDomain.getUsername())
-                .password(userDomain.getPassword())
-                .email(userDomain.getEmail())
-                .firstName(userDomain.getFirstName())
-                .lastName(userDomain.getLastName())
-                .build();
     }
 }

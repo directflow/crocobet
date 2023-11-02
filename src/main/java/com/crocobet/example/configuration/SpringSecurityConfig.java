@@ -1,5 +1,6 @@
 package com.crocobet.example.configuration;
 
+import com.crocobet.example.domain.role.Role;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -37,8 +38,10 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request.requestMatchers("/")
-                        .permitAll().requestMatchers("/api/login/**").permitAll()
+                .authorizeHttpRequests(request -> request
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/api/login/**").permitAll()
+                        .requestMatchers("/api/users/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/swagger-resources/**").permitAll()
                         .requestMatchers("/swagger-ui.html").permitAll()

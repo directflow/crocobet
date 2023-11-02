@@ -9,8 +9,8 @@ spring:
     banner-mode: "off"
   datasource:
     url: jdbc:postgresql://localhost:5432/crocobet
-    username: user
-    password: password
+    username: admin
+    password: admin
   jpa:
     open-in-view: false
     show-sql: false

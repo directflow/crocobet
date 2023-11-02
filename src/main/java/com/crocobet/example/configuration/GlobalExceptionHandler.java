@@ -28,44 +28,42 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Object> exception(Exception e) {
-
         logger.error(e.getMessage(), e);
-
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<Object> accessDeniedException(AccessDeniedException e) {
-        logger.error(e.getMessage(), e);
+        logger.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized access");
     }
 
     @ExceptionHandler(BadCredentialsException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ResponseEntity<Object> badCredentialsException(BadCredentialsException e) {
-        logger.error(e.getMessage(), e);
+        logger.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Bad credentials");
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> usernameNotFoundException(UsernameNotFoundException e) {
-        logger.error(e.getMessage(), e);
+        logger.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> userNotFoundException(UserNotFoundException e) {
-        logger.error(e.getMessage(), e);
+        logger.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User not found");
     }
 
     @ExceptionHandler(UserDuplicateException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> userDuplicateException(UserDuplicateException e) {
-        logger.error(e.getMessage(), e);
+        logger.error(e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
@@ -79,7 +77,7 @@ public class GlobalExceptionHandler {
                 .stream()
                 .collect(Collectors.toMap(error -> ((FieldError) error).getField(), error -> Objects.requireNonNull((error).getDefaultMessage())));
 
-        logger.error(bindException.getMessage(), bindException);
+        logger.error(bindException.getMessage());
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
