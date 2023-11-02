@@ -1,6 +1,5 @@
 package com.crocobet.example.facade;
 
-import com.crocobet.example.domain.role.Role;
 import com.crocobet.example.domain.user.UserDomain;
 import com.crocobet.example.exception.UserDuplicateException;
 import com.crocobet.example.exception.UserNotFoundException;

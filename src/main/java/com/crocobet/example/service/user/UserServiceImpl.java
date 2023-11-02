@@ -1,6 +1,5 @@
 package com.crocobet.example.service.user;
 
-import com.crocobet.example.domain.role.Role;
 import com.crocobet.example.domain.user.UserDomain;
 import com.crocobet.example.exception.UserDuplicateException;
 import com.crocobet.example.exception.UserNotFoundException;
@@ -88,9 +87,6 @@ public class UserServiceImpl implements UserService {
 
         // Set default active state on persisting new user
         userDomain.setEnabled(true);
-
-        // tmp
-        userDomain.setRole(Role.USER);
 
         return userRepository.save(userDomain);
     }

@@ -1,5 +1,6 @@
 package com.crocobet.example.facade;
 
+import com.crocobet.example.domain.role.Role;
 import com.crocobet.example.domain.user.UserDomain;
 import com.crocobet.example.exception.UserDuplicateException;
 import com.crocobet.example.exception.UserNotFoundException;
@@ -42,13 +43,16 @@ public class UserFacade {
     /**
      * Add new user to system
      * Build UserDomain object from request
+     * Add USER role as default
      *
      * @param userDomain UserDomain object
      * @return Updated UserDomain entity
      * @throws UserDuplicateException If user was found by username or email and active state
      */
     public UserDomain addUser(UserDomain userDomain) throws UserDuplicateException {
-        return buildResponseDTO(userService.addUser(buildRequestDTO(userDomain)));
+        UserDomain buildUserDomain = buildRequestDTO(userDomain);
+        buildUserDomain.setRole(Role.USER);
+        return buildResponseDTO(userService.addUser(buildUserDomain));
     }
 
     /**

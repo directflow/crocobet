@@ -27,5 +27,5 @@ create index multiindexemailenabled
 create index multiindexusernameenabled
     on public.users (username, enabled);
 
-INSERT INTO public.users (id,username,password,email,first_name,last_name,role,enabled,create_date) VALUES (1,'admin','$2a$10$sNsZ9JpJ9dzeEzfL3U0wpuVoCbIl/BTdn8PT.PPslKmbqiYhJfVT.','admin@gmail.com','admin','admin','ADMIN',true, NOW());
+INSERT INTO public.users (username,password,email,first_name,last_name,role,enabled,create_date) VALUES ('admin','$2a$10$sNsZ9JpJ9dzeEzfL3U0wpuVoCbIl/BTdn8PT.PPslKmbqiYhJfVT.','admin@gmail.com','admin','admin','ADMIN',true, NOW());
 

@@ -1,5 +1,6 @@
 package com.crocobet.example;
 
+import com.crocobet.example.domain.role.Role;
 import com.crocobet.example.domain.user.UserDomain;
 import com.crocobet.example.exception.UserNotFoundException;
 import com.crocobet.example.service.user.UserService;
@@ -62,6 +63,7 @@ public class UserCacheTest {
                 .firstName(getRandomString())
                 .lastName(getRandomString())
                 .email(getRandomString() + "@gmail.com")
+                .role(Role.USER)
                 .build();
     }
 
