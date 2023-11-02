@@ -2,6 +2,7 @@ package com.crocobet.example.controller;
 
 import com.crocobet.example.domain.user.UserDomain;
 import com.crocobet.example.exception.UserDuplicateException;
+import com.crocobet.example.exception.UserNotFoundException;
 import com.crocobet.example.facade.AdminFacade;
 import com.crocobet.example.logging.Loggable;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,10 +11,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/admin/users")
@@ -22,6 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminController {
 
     private final AdminFacade adminFacade;
+
+    @Loggable
+    @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Operation(summary = "Get user by id, authorized with ADMIN role")
+    public ResponseEntity<UserDomain> getUserById(@PathVariable Integer id) throws UserNotFoundException {
+        return ResponseEntity.ok(adminFacade.getUserById(id));
+    }
 
     @Loggable
     @PutMapping("")

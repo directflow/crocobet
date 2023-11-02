@@ -2,6 +2,7 @@ package com.crocobet.example.facade;
 
 import com.crocobet.example.domain.user.UserDomain;
 import com.crocobet.example.exception.UserDuplicateException;
+import com.crocobet.example.exception.UserNotFoundException;
 import com.crocobet.example.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,17 @@ import static com.crocobet.example.service.user.UserBuilderUtil.buildResponseDTO
 public class AdminFacade {
 
     private final UserService userService;
+
+    /**
+     * Get UserDomain by id and converting to new UserDomain response object
+     *
+     * @param id UserDomain id
+     * @return UserDomain object
+     * @throws UserNotFoundException If user not exists
+     */
+    public UserDomain getUserById(Integer id) throws UserNotFoundException {
+        return buildResponseDTO(userService.getUserById(id));
+    }
 
     /**
      * Add new user with USER or ADMIN role to system
