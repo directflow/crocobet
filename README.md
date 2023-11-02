@@ -35,6 +35,13 @@ username: admin
 password: admin123
 ```
 
+## Database params
+```
+username: admin
+password: admin
+port: 5432
+```
+
 ## Technologies
 
 * `Gradle`

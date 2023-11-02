@@ -39,10 +39,28 @@ public class UserFacade {
         return buildResponseDTO(userService.getUserById(id));
     }
 
+    /**
+     * Add new user to system
+     * Build UserDomain object from request
+     *
+     * @param userDomain UserDomain object
+     * @return Updated UserDomain entity
+     * @throws UserDuplicateException If user was found by username or email and active state
+     */
     public UserDomain addUser(UserDomain userDomain) throws UserDuplicateException {
         return buildResponseDTO(userService.addUser(buildRequestDTO(userDomain)));
     }
 
+    /**
+     * Update UserDomain to system
+     * Build UserDomain object from request
+     *
+     * @param id         UserDomain id
+     * @param userDomain UserDomain object
+     * @return Updated UserDomain entity
+     * @throws UserNotFoundException  If user not exists with id
+     * @throws UserDuplicateException If user was found by username or email and active state
+     */
     public UserDomain updateUser(Integer id, UserDomain userDomain) throws UserNotFoundException, UserDuplicateException {
         return buildResponseDTO(userService.updateUser(id, buildRequestDTO(userDomain)));
     }
