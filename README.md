@@ -29,6 +29,12 @@ docker-compose up
 http://localhost:8080/swagger-ui/index.html
 ```
 
+## Auth with ADMIN role
+```
+username: admin
+password: admin123
+```
+
 ## Technologies
 
 * `Gradle`

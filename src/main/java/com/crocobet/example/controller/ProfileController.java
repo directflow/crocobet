@@ -25,7 +25,7 @@ public class ProfileController {
 
     @Loggable
     @PostMapping("")
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
     public ResponseEntity<UserDomain> updateProfile(@Valid @RequestBody UserDomain userDomain) throws UserNotFoundException, UserDuplicateException {
         return ResponseEntity.ok(profileFacade.updateProfile(userDomain));
     }
