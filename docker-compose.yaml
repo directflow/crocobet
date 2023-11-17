@@ -15,6 +15,12 @@ services:
     container_name: hazelcast-prod
     ports:
       - 5701:5701
+  pulsar:
+    image: 'apachepulsar/pulsar:3.0.0'
+    entrypoint: "bin/pulsar standalone"
+    container_name: pulsar-prod
+    ports:
+      - 6650:6650
   app:
     image: 'zura/crocobet-example:latest'
     build:
@@ -25,11 +31,13 @@ services:
     depends_on:
       - database
       - hazelcast
+      - pulsar
     environment:
       - SERVER_PORT=8080
       - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/crocobet
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=admin
+      - PULSAR_SERVER_URL=pulsar://pulsar:6650
       - HAZELCAST_PORT=5701
       - JWT_SECRET_KEY=0E29F63052E520DE00C90726734E9471B4938832A41CE50986451201F26ED1D8
       - JWT_EXPIRATION_SEC=60

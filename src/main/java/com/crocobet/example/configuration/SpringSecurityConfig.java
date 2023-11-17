@@ -41,6 +41,7 @@ public class SpringSecurityConfig {
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/api/login/**").permitAll()
                         .requestMatchers("/api/users/**").permitAll()
+                        .requestMatchers("/api/pulsar/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/swagger-resources/**").permitAll()
                         .requestMatchers("/swagger-ui.html").permitAll()

@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import static com.crocobet.example.service.user.UserBuilderUtil.buildRequestDTO;
-import static com.crocobet.example.service.user.UserBuilderUtil.buildResponseDTO;
+import static com.crocobet.example.builder.UserDomainBuilder.buildRequestDTO;
+import static com.crocobet.example.builder.UserDomainBuilder.buildResponseDTO;
 
 @Component
 @RequiredArgsConstructor

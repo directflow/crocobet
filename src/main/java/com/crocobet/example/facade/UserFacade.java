@@ -4,15 +4,15 @@ import com.crocobet.example.domain.role.Role;
 import com.crocobet.example.domain.user.UserDomain;
 import com.crocobet.example.exception.UserDuplicateException;
 import com.crocobet.example.exception.UserNotFoundException;
-import com.crocobet.example.service.user.UserBuilderUtil;
+import com.crocobet.example.builder.UserDomainBuilder;
 import com.crocobet.example.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.crocobet.example.service.user.UserBuilderUtil.buildRequestDTO;
-import static com.crocobet.example.service.user.UserBuilderUtil.buildResponseDTO;
+import static com.crocobet.example.builder.UserDomainBuilder.buildRequestDTO;
+import static com.crocobet.example.builder.UserDomainBuilder.buildResponseDTO;
 
 @Component
 @RequiredArgsConstructor
@@ -26,7 +26,7 @@ public class UserFacade {
      * @return List of UserDomain objects
      */
     public List<UserDomain> getUserList() {
-        return userService.getUserList().stream().map(UserBuilderUtil::buildResponseDTO).toList();
+        return userService.getUserList().stream().map(UserDomainBuilder::buildResponseDTO).toList();
     }
 
     /**

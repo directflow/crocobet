@@ -1,8 +1,9 @@
-package com.crocobet.example.service.user;
+package com.crocobet.example.builder;
 
+import com.crocobet.example.model.pulsar.PulsarUserModel;
 import com.crocobet.example.domain.user.UserDomain;
 
-public class UserBuilderUtil {
+public class UserDomainBuilder {
 
     /**
      * Build new UserDomain object from entity with Lombok builder
@@ -43,6 +44,26 @@ public class UserBuilderUtil {
                 .email(userDomain.getEmail())
                 .firstName(userDomain.getFirstName())
                 .lastName(userDomain.getLastName())
+                .build();
+    }
+
+    /**
+     * Build new UserDomain object to entity from PulsarUserDomain with Lombok builder
+     * Pass id, createDate, modifyDate, role for security
+     *
+     * @param pulsarUserModel PulsarUserDomain object
+     * @return Converted to UserDomain entity
+     */
+    public static UserDomain buildRequestDTO(PulsarUserModel pulsarUserModel) {
+
+        return UserDomain
+                .builder()
+                .username(pulsarUserModel.getUsername())
+                .password(pulsarUserModel.getPassword())
+                .email(pulsarUserModel.getEmail())
+                .firstName(pulsarUserModel.getFirstName())
+                .lastName(pulsarUserModel.getLastName())
+                .role(pulsarUserModel.getRole())
                 .build();
     }
 }

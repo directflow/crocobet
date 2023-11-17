@@ -22,7 +22,6 @@ import java.util.List;
 @Data
 @Entity
 @Builder
-
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -47,7 +46,8 @@ public class UserDomain implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Email(regexp = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,3}")
+    @Size(min = 4, max = 100)
+    @Email(regexp = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,3}")
     @Column(name = "email", nullable = false)
     private String email;
 

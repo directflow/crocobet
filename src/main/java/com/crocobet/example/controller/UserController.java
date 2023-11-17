@@ -23,10 +23,11 @@ public class UserController {
 
     private final UserFacade userFacade;
 
+    @Loggable
     @GetMapping("")
     @Operation(summary = "Get all users")
-    public List<UserDomain> getUserList() {
-        return userFacade.getUserList();
+    public ResponseEntity<List<UserDomain>> getUserList() {
+        return ResponseEntity.ok(userFacade.getUserList());
     }
 
     @Loggable
