@@ -1,7 +1,7 @@
 package com.crocobet.example.builder;
 
-import com.crocobet.example.model.pulsar.PulsarUserModel;
 import com.crocobet.example.domain.user.UserDomain;
+import com.crocobet.example.model.pulsar.PulsarUserModel;
 
 public class UserDomainBuilder {
 

@@ -1,4 +1,4 @@
-drop table public.users;
+drop table if exists public.users;
 create table public.users
 (
     id          serial

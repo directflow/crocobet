@@ -16,11 +16,12 @@ services:
     ports:
       - 5701:5701
   pulsar:
-    image: 'apachepulsar/pulsar:3.0.0'
+    image: 'apachepulsar/pulsar:3.1.1'
     entrypoint: "bin/pulsar standalone"
     container_name: pulsar-prod
     ports:
       - 6650:6650
+      - 6651:8080
   app:
     image: 'zura/crocobet-example:latest'
     build:
@@ -31,7 +32,6 @@ services:
     depends_on:
       - database
       - hazelcast
-      - pulsar
     environment:
       - SERVER_PORT=8080
       - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/crocobet

@@ -21,9 +21,6 @@ spring:
       service-url: ${PULSAR_SERVER_URL}
     producer:
       compression-type: lz4
-    consumer:
-      ack-timeout: 2s
-      negative-ack-redelivery-delay: 1s
     user-topic-name: user-topic
     log-topic-name: log-topic
 jwt:

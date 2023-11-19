@@ -66,16 +66,25 @@ public class LoggableAspect {
 
         try {
 
-            HttpServletRequest request =
-                    ((ServletRequestAttributes) Objects.requireNonNull(
-                            RequestContextHolder.getRequestAttributes()))
-                            .getRequest();
+            String endpoint = "";
+            String remoteAddr = "";
+
+            if(Objects.nonNull(RequestContextHolder.getRequestAttributes())) {
+
+                HttpServletRequest request =
+                        ((ServletRequestAttributes) Objects.requireNonNull(
+                                RequestContextHolder.getRequestAttributes()))
+                                .getRequest();
+
+                endpoint = request.getRequestURI();
+                remoteAddr = request.getRemoteAddr();
+            }
 
             LogModel logModel = LogModel
                     .builder()
                     .execution(System.currentTimeMillis() - startTime)
-                    .endpoint(request.getRequestURI())
-                    .ip(request.getRemoteAddr())
+                    .endpoint(endpoint)
+                    .ip(remoteAddr)
                     .request(proceedingJoinPoint.getArgs())
                     .response(proceed)
                     .build();

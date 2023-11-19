@@ -37,4 +37,6 @@ public class PulsarUserModel {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private Double balance;
+
 }
