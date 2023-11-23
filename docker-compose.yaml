@@ -55,3 +55,6 @@ services:
     environment:
       - PULSAR_SERVER_URL=pulsar://pulsar:6650
       - PULSAR_ADMIN_URL=http://pulsar:6651
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/crocobet
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
