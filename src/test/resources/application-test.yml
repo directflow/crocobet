@@ -19,10 +19,9 @@ spring:
   pulsar:
     client:
       service-url: pulsar://localhost:6650
-    producer:
-      compression-type: lz4
     user-topic-name: user-topic
     log-topic-name: log-topic
+    payment-topic-name: payment-topic
 jwt:
   key: 0E29F63052E520DE00C90726734E9471B4938832A41CE50986451201F26ED1D8
   expiration: 60

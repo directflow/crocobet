@@ -55,9 +55,20 @@ port: 5432
 * Log async sending with pulsar producer
 * Log listening with pulsar consumer
 
+## Flink as external application added
+
+* https://github.com/directflow/crocobet-reactive
+* Payment listener in external application: http://localhost:8082
+* Flink dashboard: http://localhost:8081
+
+## Reactive project with Flink
+
+* https://github.com/directflow/crocobet-reactive
+
 ## Technologies
 
 * `Apache Pulsar`
+* `Apache Flink`
 * `Spring Boot`
 * `PostgreSQL`
 * `Hazelcast`

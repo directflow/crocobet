@@ -1,5 +1,6 @@
 package com.crocobet.example.service.pulsar;
 
+import com.crocobet.example.domain.payment.Payment;
 import com.crocobet.example.model.pulsar.PulsarUserModel;
 import org.apache.pulsar.client.api.MessageId;
 import org.apache.pulsar.client.api.PulsarClientException;
@@ -18,9 +19,14 @@ public class PulsarServiceImpl implements PulsarService {
     @Value("${spring.pulsar.user-topic-name}")
     private String userTopicName;
 
+    @Value("${spring.pulsar.payment-topic-name}")
+    private String paymentTopicName;
+
     private PulsarTemplate<String> pulsarTemplateLog;
 
     private PulsarTemplate<PulsarUserModel> pulsarTemplateUser;
+
+    private PulsarTemplate<Payment> pulsarTemplatePayment;
 
     @Autowired
     public void setPulsarTemplateLog(PulsarTemplate<String> pulsarTemplateLog) {
@@ -30,6 +36,11 @@ public class PulsarServiceImpl implements PulsarService {
     @Autowired
     public void setPulsarTemplateUser(PulsarTemplate<PulsarUserModel> pulsarTemplateUser) {
         this.pulsarTemplateUser = pulsarTemplateUser;
+    }
+
+    @Autowired
+    public void setPulsarTemplatePayment(PulsarTemplate<Payment> pulsarTemplatePayment) {
+        this.pulsarTemplatePayment = pulsarTemplatePayment;
     }
 
     /**
@@ -61,5 +72,21 @@ public class PulsarServiceImpl implements PulsarService {
                 .withTopic(userTopicName)
                 .withSchema(Schema.JSON(PulsarUserModel.class))
                 .send();
+    }
+
+    /**
+     * Send Payment to Pulsar
+     * External example-reactive application is listening with flink connector
+     *
+     * @param payment Payment object
+     * @throws PulsarClientException On pulsar exception
+     */
+    @Override
+    public void sendPaymentAsync(Payment payment) throws PulsarClientException {
+        pulsarTemplatePayment
+                .newMessage(payment)
+                .withTopic(paymentTopicName)
+                .withSchema(Schema.JSON(Payment.class))
+                .sendAsync();
     }
 }

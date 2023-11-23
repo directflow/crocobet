@@ -19,10 +19,9 @@ spring:
   pulsar:
     client:
       service-url: ${PULSAR_SERVER_URL}
-    producer:
-      compression-type: lz4
     user-topic-name: user-topic
     log-topic-name: log-topic
+    payment-topic-name: payment-topic
 jwt:
   key: ${JWT_SECRET_KEY}
   expiration: ${JWT_EXPIRATION_SEC}
