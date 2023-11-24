@@ -43,6 +43,7 @@ services:
       - JWT_SECRET_KEY=0E29F63052E520DE00C90726734E9471B4938832A41CE50986451201F26ED1D8
       - JWT_EXPIRATION_SEC=60
   reactive:
+    network_mode: host
     image: 'zura/crocobet-example-reactive:latest'
     build:
       context: .
@@ -53,6 +54,7 @@ services:
     depends_on:
       - pulsar
     environment:
+      - SERVER_PORT=8080
       - PULSAR_SERVER_URL=pulsar://pulsar:6650
       - PULSAR_ADMIN_URL=http://pulsar:6651
       - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/crocobet
