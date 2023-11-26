@@ -17,6 +17,8 @@ spring:
     hibernate:
       ddl-auto: update
   pulsar:
+    administration:
+      service-url: ${PULSAR_ADMIN_URL}
     client:
       service-url: ${PULSAR_SERVER_URL}
     user-topic-name: user-topic

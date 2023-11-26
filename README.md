@@ -5,7 +5,7 @@
 ```
 docker run --name hazelcast -p 5701:5701 -d hazelcast/hazelcast
 docker run --name postgres -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=crocobet -d postgres:16.0-alpine
-docker run --name pulsar -p 6650:6650 -p 6651:8080 -d --mount source=pulsardata,target=/pulsar/data --mount source=pulsarconf,target=/pulsar/conf apachepulsar/pulsar:3.1.1 bin/pulsar standalone
+docker run --name pulsar -p 6650:6650 -p 8080:8080 -d --mount source=pulsardata,target=/pulsar/data --mount source=pulsarconf,target=/pulsar/conf apachepulsar/pulsar:3.1.1 bin/pulsar standalone
 ```
 
 ### Build and run local
@@ -30,7 +30,7 @@ docker-compose up
 ## Access
 
 ```
-http://localhost:8080/swagger-ui/index.html
+http://localhost:8082/swagger-ui/index.html
 ```
 
 ## Auth with ADMIN role
@@ -58,7 +58,7 @@ port: 5432
 ## Flink as external application added
 
 * https://github.com/directflow/crocobet-reactive
-* Payment listener in external application: http://localhost:8082
+* Payment listener in external application: http://localhost:8083
 * Flink dashboard: http://localhost:8081
 
 ## Reactive project with Flink

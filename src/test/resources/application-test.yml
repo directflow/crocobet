@@ -17,6 +17,8 @@ spring:
     hibernate:
       ddl-auto: update
   pulsar:
+    administration:
+      service-url: http://localhost:8080
     client:
       service-url: pulsar://localhost:6650
     user-topic-name: user-topic

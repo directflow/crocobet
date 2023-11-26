@@ -1,9 +1,14 @@
+version: '3.9'
+networks:
+  crocobet_network:
 services:
   database:
     image: 'postgres:16.0-alpine'
     container_name: postgres-prod
+    networks:
+      - crocobet_network
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       - POSTGRES_DB=crocobet
       - POSTGRES_USER=admin
@@ -13,22 +18,28 @@ services:
   hazelcast:
     image: 'hazelcast/hazelcast'
     container_name: hazelcast-prod
+    networks:
+      - crocobet_network
     ports:
-      - 5701:5701
+      - "5701:5701"
   pulsar:
     image: 'apachepulsar/pulsar:3.1.1'
-    entrypoint: "bin/pulsar standalone"
     container_name: pulsar-prod
+    networks:
+      - crocobet_network
     ports:
-      - 6650:6650
-      - 6651:8080
+      - "6650:6650"
+      - "8080:8080"
+    entrypoint: "bin/pulsar standalone"
   app:
     image: 'zura/crocobet-example:latest'
     build:
       context: .
     container_name: crocobet-prod
+    networks:
+      - crocobet_network
     ports:
-      - 8080:8080
+      - "8082:8080"
     depends_on:
       - database
       - hazelcast
@@ -39,6 +50,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=admin
       - PULSAR_SERVER_URL=pulsar://pulsar:6650
+      - PULSAR_ADMIN_URL=http://pulsar:8080
       - HAZELCAST_PORT=5701
       - JWT_SECRET_KEY=0E29F63052E520DE00C90726734E9471B4938832A41CE50986451201F26ED1D8
       - JWT_EXPIRATION_SEC=60
@@ -47,15 +59,18 @@ services:
     build:
       context: .
     container_name: crocobet-reactive-prod
+    networks:
+      - crocobet_network
     ports:
-      - 8081:8081
-      - 8082:8080
+      - "8083:8080"
+      - "8081:8081"
     depends_on:
       - pulsar
+      - app
     environment:
-      - SERVER_PORT=8080
-      - PULSAR_SERVER_URL=pulsar://pulsar:6650
-      - PULSAR_ADMIN_URL=http://pulsar:6651
+      - SERVER_PORT=8083
       - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/crocobet
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=admin
+      - PULSAR_SERVER_URL=pulsar://pulsar:6650
+      - PULSAR_ADMIN_URL=http://pulsar:8080

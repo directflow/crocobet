@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8082
   shutdown: graceful
 springdoc:
   swagger-ui:
@@ -17,14 +17,16 @@ spring:
     hibernate:
       ddl-auto: update
   pulsar:
+    administration:
+      service-url: http://localhost:8080
     client:
       service-url: pulsar://localhost:6650
     user-topic-name: user-topic
     log-topic-name: log-topic
     payment-topic-name: payment-topic
 jwt:
-    key: 0E29F63052E520DE00C90726734E9471B4938832A41CE50986451201F26ED1D8
-    expiration: 60
+  key: 0E29F63052E520DE00C90726734E9471B4938832A41CE50986451201F26ED1D8
+  expiration: 60
 hazelcast:
   host: localhost
   port: 5701
