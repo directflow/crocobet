@@ -12,7 +12,7 @@ docker run --name pulsar -p 6650:6650 -p 8080:8080 -d --mount source=pulsardata,
 
 ```
 gradle clean build -x test
-java -jar -Dspring.profiles.active=dev example.jar
+java -jar -Dspring.profiles.active=dev build/lib/example.jar
 ```
 
 ### Run in Idea
@@ -57,13 +57,8 @@ port: 5432
 
 ## Flink as external application added
 
-* https://github.com/directflow/crocobet-reactive
-* Payment listener in external application: http://localhost:8083
+* https://github.com/directflow/crocobet-flink
 * Flink dashboard: http://localhost:8081
-
-## Reactive project with Flink
-
-* https://github.com/directflow/crocobet-reactive
 
 ## Technologies
 

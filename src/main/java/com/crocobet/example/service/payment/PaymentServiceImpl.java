@@ -34,7 +34,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     /**
      * Generate 10 Payment objects with random values and send to pulsar async
-     * External example-reactive application is listening with Flink pulsar listener
+     * External example-flink application is listening with Flink pulsar listener
      *
      * @return List of Payment objects
      */

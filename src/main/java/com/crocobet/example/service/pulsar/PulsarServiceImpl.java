@@ -76,7 +76,7 @@ public class PulsarServiceImpl implements PulsarService {
 
     /**
      * Send Payment to Pulsar
-     * External example-reactive application is listening with flink connector
+     * External example-flink application is listening with flink connector
      *
      * @param payment Payment object
      * @throws PulsarClientException On pulsar exception

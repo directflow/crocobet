@@ -1,4 +1,4 @@
-version: '3.9'
+version: '3.8'
 networks:
   crocobet_network:
 services:
@@ -31,6 +31,11 @@ services:
       - "6650:6650"
       - "8080:8080"
     entrypoint: "bin/pulsar standalone"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/metrics/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
   app:
     image: 'zura/crocobet-example:latest'
     build:
@@ -54,23 +59,21 @@ services:
       - HAZELCAST_PORT=5701
       - JWT_SECRET_KEY=0E29F63052E520DE00C90726734E9471B4938832A41CE50986451201F26ED1D8
       - JWT_EXPIRATION_SEC=60
-  reactive:
-    image: 'zura/crocobet-example-reactive:latest'
+  app-flink:
+    image: 'zura/crocobet-example-flink:latest'
     build:
       context: .
-    container_name: crocobet-reactive-prod
+    container_name: crocobet-flink-prod
     networks:
       - crocobet_network
     ports:
-      - "8083:8080"
       - "8081:8081"
     depends_on:
-      - pulsar
-      - app
+      pulsar:
+        condition: service_healthy
     environment:
-      - SERVER_PORT=8083
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/crocobet
-      - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=admin
+      - DATASOURCE_URL=jdbc:postgresql://database:5432/crocobet
+      - DATASOURCE_USERNAME=admin
+      - DATASOURCE_PASSWORD=admin
       - PULSAR_SERVER_URL=pulsar://pulsar:6650
       - PULSAR_ADMIN_URL=http://pulsar:8080
