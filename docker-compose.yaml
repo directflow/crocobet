@@ -77,3 +77,4 @@ services:
       - DATASOURCE_PASSWORD=admin
       - PULSAR_SERVER_URL=pulsar://pulsar:6650
       - PULSAR_ADMIN_URL=http://pulsar:8080
+      - ACTIVE_PROFILE=prod
