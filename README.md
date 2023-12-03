@@ -6,6 +6,7 @@
 docker run --name hazelcast -p 5701:5701 -d hazelcast/hazelcast
 docker run --name postgres -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=crocobet -d postgres:16.0-alpine
 docker run --name pulsar -p 6650:6650 -p 8080:8080 -d apachepulsar/pulsar:3.1.1 bin/pulsar standalone
+docker exec -it pulsar /bin/pulsar-admin topics create public/default/payment-topic
 ```
 
 ### Build and run local

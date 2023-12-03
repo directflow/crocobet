@@ -32,7 +32,7 @@ services:
       - "8080:8080"
     entrypoint: "bin/pulsar standalone"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/metrics/"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/metrics/" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -69,6 +69,8 @@ services:
     ports:
       - "8081:8081"
     depends_on:
+      database:
+        condition: service_started
       pulsar:
         condition: service_healthy
     environment:
